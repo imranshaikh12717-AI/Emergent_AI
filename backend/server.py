@@ -101,7 +101,8 @@ async def startup_event():
     if categories_collection.count_documents({}) == 0:
         for cat_data in DEFAULT_CATEGORIES:
             category = Category(**cat_data)
-            categories_collection.insert_one(category.dict())
+            category_dict = category.dict()
+            categories_collection.insert_one(category_dict)
 
 # Helper functions
 def get_monthly_data(user_id: str, month: int, year: int):
