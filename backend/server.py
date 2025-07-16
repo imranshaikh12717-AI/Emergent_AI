@@ -92,8 +92,8 @@ class Income(BaseModel):
     amount: float
     source: str
     date: datetime = Field(default_factory=datetime.utcnow)
-    month: int
-    year: int
+    month: Optional[int] = None
+    year: Optional[int] = None
     
     class Config:
         json_encoders = {
