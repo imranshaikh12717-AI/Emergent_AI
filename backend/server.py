@@ -222,8 +222,6 @@ async def create_user(user: User):
         raise HTTPException(status_code=400, detail="User already exists")
     
     user_dict = user.dict()
-    # Convert datetime to string for JSON serialization
-    user_dict["created_at"] = user_dict["created_at"].isoformat()
     users_collection.insert_one(user_dict)
     return {"message": "User created successfully", "user": user_dict}
 
