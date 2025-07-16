@@ -113,6 +113,7 @@ async def startup_event():
         for cat_data in DEFAULT_CATEGORIES:
             category = Category(**cat_data)
             category_dict = category.dict()
+            # Insert without returning the result to avoid ObjectId issues
             categories_collection.insert_one(category_dict)
 
 # Helper functions
