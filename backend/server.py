@@ -108,8 +108,8 @@ class Expense(BaseModel):
     description: str
     category_id: str
     date: datetime = Field(default_factory=datetime.utcnow)
-    month: int
-    year: int
+    month: Optional[int] = None
+    year: Optional[int] = None
     
     class Config:
         json_encoders = {
