@@ -283,3 +283,5 @@ test_plan:
 agent_communication:
   - agent: "main"
     message: "Initial implementation complete. Created full-stack personal finance app with income/expense tracking, categorization, spending analysis, overspending detection, and personalized savings recommendations. All backend APIs need testing to ensure proper functionality before frontend integration testing."
+  - agent: "main"
+    message: "Fixed MongoDB ObjectId serialization issues in all backend endpoints. Updated all Pydantic models with proper JSON encoders and used jsonable_encoder for all API responses. Backend should now work properly with JSON serialization."
