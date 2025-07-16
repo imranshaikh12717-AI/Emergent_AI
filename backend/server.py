@@ -380,7 +380,7 @@ async def get_spending_analysis(user_id: str, month: int = None, year: int = Non
         month_comparison=month_comparison
     )
     
-    return jsonable_encoder(analysis.dict())
+    return convert_object_id(analysis.dict())
 
 @app.get("/api/recommendations/{user_id}")
 async def get_savings_recommendations(user_id: str, month: int = None, year: int = None):
