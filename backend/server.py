@@ -323,18 +323,17 @@ async def get_income(user_id: str, month: int = None, year: int = None):
         query.update({"month": month, "year": year})
     
     income_data = list(income_collection.find(query, {"_id": 0}))
-    return {"income": income_data}
+    return {"income": jsonable_encoder(income_data)}
 
 @app.post("/api/expenses")
 async def add_expense(expense: Expense):
-    # Parse date string to get month and year
-    date_obj = datetime.fromisoformat(expense.date.replace('Z', '+00:00'))
-    expense.month = date_obj.month
-    expense.year = date_obj.year
+    # Set month and year from date
+    expense.month = expense.date.month
+    expense.year = expense.date.year
     
     expense_dict = expense.dict()
     expenses_collection.insert_one(expense_dict)
-    return {"message": "Expense added successfully", "expense": expense_dict}
+    return {"message": "Expense added successfully", "expense": jsonable_encoder(expense_dict)}
 
 @app.get("/api/expenses/{user_id}")
 async def get_expenses(user_id: str, month: int = None, year: int = None):
@@ -343,7 +342,7 @@ async def get_expenses(user_id: str, month: int = None, year: int = None):
         query.update({"month": month, "year": year})
     
     expense_data = list(expenses_collection.find(query, {"_id": 0}))
-    return {"expenses": expense_data}
+    return {"expenses": jsonable_encoder(expense_data)}
 
 @app.delete("/api/expenses/{expense_id}")
 async def delete_expense(expense_id: str):
