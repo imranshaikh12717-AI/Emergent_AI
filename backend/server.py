@@ -221,9 +221,18 @@ def generate_savings_tips(overspending_data: List[dict]) -> List[SavingsRecommen
 async def health_check():
     return {"status": "healthy"}
 
-@app.get("/api/test")
-async def test_endpoint():
-    return {"message": "Test endpoint working", "timestamp": datetime.utcnow().isoformat()}
+@app.post("/api/test-user")
+async def test_create_user():
+    test_user = {
+        "id": str(uuid.uuid4()),
+        "name": "Test User",
+        "email": "test@example.com",
+        "monthly_budget": 3000.0,
+        "created_at": datetime.utcnow().isoformat()
+    }
+    
+    users_collection.insert_one(test_user)
+    return {"message": "Test user created", "user": test_user}
 
 @app.get("/api/categories")
 async def get_categories():
