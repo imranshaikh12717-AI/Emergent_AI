@@ -264,13 +264,12 @@ async def get_income(user_id: str, month: int = None, year: int = None):
 
 @app.post("/api/expenses")
 async def add_expense(expense: Expense):
-    # Set month and year from date
-    expense.month = expense.date.month
-    expense.year = expense.date.year
+    # Parse date string to get month and year
+    date_obj = datetime.fromisoformat(expense.date.replace('Z', '+00:00'))
+    expense.month = date_obj.month
+    expense.year = date_obj.year
     
     expense_dict = expense.dict()
-    # Convert datetime to string for JSON serialization
-    expense_dict["date"] = expense_dict["date"].isoformat()
     expenses_collection.insert_one(expense_dict)
     return {"message": "Expense added successfully", "expense": expense_dict}
 
