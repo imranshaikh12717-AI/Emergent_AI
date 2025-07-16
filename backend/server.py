@@ -310,7 +310,7 @@ async def get_income(user_id: str, month: int = None, year: int = None):
         query.update({"month": month, "year": year})
     
     income_data = list(income_collection.find(query, {"_id": 0}))
-    return {"income": jsonable_encoder(income_data)}
+    return {"income": convert_object_id(income_data)}
 
 @app.post("/api/expenses")
 async def add_expense(expense: Expense):
