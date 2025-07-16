@@ -62,7 +62,7 @@ class Expense(BaseModel):
     amount: float
     description: str
     category_id: str
-    date: datetime = Field(default_factory=datetime.utcnow)
+    date: str = Field(default_factory=lambda: datetime.utcnow().isoformat())
     month: int
     year: int
 
