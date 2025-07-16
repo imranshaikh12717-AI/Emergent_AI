@@ -105,9 +105,15 @@ class Expense(BaseModel):
     amount: float
     description: str
     category_id: str
-    date: str = Field(default_factory=lambda: datetime.utcnow().isoformat())
+    date: datetime = Field(default_factory=datetime.utcnow)
     month: int
     year: int
+    
+    class Config:
+        json_encoders = {
+            datetime: lambda v: v.isoformat(),
+            ObjectId: str
+        }
 
 class SpendingAnalysis(BaseModel):
     total_income: float
