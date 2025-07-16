@@ -393,7 +393,7 @@ async def get_spending_analysis(user_id: str, month: int = None, year: int = Non
         month_comparison=month_comparison
     )
     
-    return analysis.dict()
+    return jsonable_encoder(analysis.dict())
 
 @app.get("/api/recommendations/{user_id}")
 async def get_savings_recommendations(user_id: str, month: int = None, year: int = None):
@@ -405,7 +405,7 @@ async def get_savings_recommendations(user_id: str, month: int = None, year: int
     overspending_data = detect_overspending(user_id, month, year)
     recommendations = generate_savings_tips(overspending_data)
     
-    return {"recommendations": [rec.dict() for rec in recommendations]}
+    return {"recommendations": jsonable_encoder([rec.dict() for rec in recommendations])}
 
 if __name__ == "__main__":
     import uvicorn
