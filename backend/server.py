@@ -287,7 +287,7 @@ async def create_user(user: User):
     users_collection.insert_one(user_dict)
     
     # Return user data without MongoDB ObjectId
-    return {"message": "User created successfully", "user": user_dict}
+    return {"message": "User created successfully", "user": jsonable_encoder(user_dict)}
 
 @app.get("/api/users/{user_id}")
 async def get_user(user_id: str):
