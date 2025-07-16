@@ -64,7 +64,13 @@ class User(BaseModel):
     name: str
     email: str
     monthly_budget: float = 0.0
-    created_at: str = Field(default_factory=lambda: datetime.utcnow().isoformat())
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    
+    class Config:
+        json_encoders = {
+            datetime: lambda v: v.isoformat(),
+            ObjectId: str
+        }
 
 class Category(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
