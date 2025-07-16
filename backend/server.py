@@ -281,7 +281,7 @@ async def get_user(user_id: str):
     user = users_collection.find_one({"id": user_id}, {"_id": 0})
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
-    return jsonable_encoder(user)
+    return convert_object_id(user)
 
 @app.put("/api/users/{user_id}")
 async def update_user(user_id: str, user_update: dict):
