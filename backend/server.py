@@ -221,6 +221,10 @@ def generate_savings_tips(overspending_data: List[dict]) -> List[SavingsRecommen
 async def health_check():
     return {"status": "healthy"}
 
+@app.get("/api/test")
+async def test_endpoint():
+    return {"message": "Test endpoint working", "timestamp": datetime.utcnow().isoformat()}
+
 @app.get("/api/categories")
 async def get_categories():
     categories = list(categories_collection.find({}, {"_id": 0}))
