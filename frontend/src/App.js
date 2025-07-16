@@ -20,7 +20,7 @@ function App() {
     id: 'user-1',
     name: 'John Doe',
     email: 'john@example.com',
-    monthly_budget: 3000
+    monthly_budget: 200000
   };
 
   useEffect(() => {
