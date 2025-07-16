@@ -106,15 +106,15 @@ DEFAULT_CATEGORIES = [
     {"name": "Other", "color": "#94A3B8", "icon": "📦", "budget_percentage": 5}
 ]
 
-@app.on_event("startup")
-async def startup_event():
-    # Initialize categories if they don't exist
-    if categories_collection.count_documents({}) == 0:
-        for cat_data in DEFAULT_CATEGORIES:
-            category = Category(**cat_data)
-            category_dict = category.dict()
-            # Insert without returning the result to avoid ObjectId issues
-            categories_collection.insert_one(category_dict)
+# @app.on_event("startup")
+# async def startup_event():
+#     # Initialize categories if they don't exist
+#     if categories_collection.count_documents({}) == 0:
+#         for cat_data in DEFAULT_CATEGORIES:
+#             category = Category(**cat_data)
+#             category_dict = category.dict()
+#             # Insert without returning the result to avoid ObjectId issues
+#             categories_collection.insert_one(category_dict)
 
 # Helper functions
 def get_monthly_data(user_id: str, month: int, year: int):
