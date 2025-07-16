@@ -229,12 +229,14 @@ async def get_categories():
 @app.post("/api/users")
 async def create_user(user: User):
     # Check if user already exists
-    existing_user = users_collection.find_one({"email": user.email})
+    existing_user = users_collection.find_one({"email": user.email}, {"_id": 0})
     if existing_user:
         raise HTTPException(status_code=400, detail="User already exists")
     
     user_dict = user.dict()
     users_collection.insert_one(user_dict)
+    
+    # Return user data without MongoDB ObjectId
     return {"message": "User created successfully", "user": user_dict}
 
 @app.get("/api/users/{user_id}")
