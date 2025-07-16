@@ -272,6 +272,8 @@ async def add_expense(expense: Expense):
     expense.year = expense.date.year
     
     expense_dict = expense.dict()
+    # Convert datetime to string for JSON serialization
+    expense_dict["date"] = expense_dict["date"].isoformat()
     expenses_collection.insert_one(expense_dict)
     return {"message": "Expense added successfully", "expense": expense_dict}
 
