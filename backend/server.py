@@ -301,7 +301,7 @@ async def add_income(income: Income):
     
     income_dict = income.dict()
     income_collection.insert_one(income_dict)
-    return {"message": "Income added successfully", "income": jsonable_encoder(income_dict)}
+    return {"message": "Income added successfully", "income": convert_object_id(income_dict)}
 
 @app.get("/api/income/{user_id}")
 async def get_income(user_id: str, month: int = None, year: int = None):
