@@ -320,7 +320,7 @@ async def add_expense(expense: Expense):
     
     expense_dict = expense.dict()
     expenses_collection.insert_one(expense_dict)
-    return {"message": "Expense added successfully", "expense": jsonable_encoder(expense_dict)}
+    return {"message": "Expense added successfully", "expense": convert_object_id(expense_dict)}
 
 @app.get("/api/expenses/{user_id}")
 async def get_expenses(user_id: str, month: int = None, year: int = None):
