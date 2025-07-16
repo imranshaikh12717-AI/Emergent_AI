@@ -9,6 +9,7 @@ from datetime import datetime, timedelta
 import uuid
 from collections import defaultdict
 import calendar
+from bson import ObjectId
 
 app = FastAPI()
 
@@ -31,6 +32,16 @@ users_collection = db.users
 income_collection = db.income
 expenses_collection = db.expenses
 categories_collection = db.categories
+
+# Helper function to convert ObjectId to string
+def convert_object_id(document):
+    if isinstance(document, list):
+        return [convert_object_id(doc) for doc in document]
+    
+    if isinstance(document, dict):
+        return {key: (str(value) if isinstance(value, ObjectId) else convert_object_id(value)) for key, value in document.items()}
+    
+    return document
 
 # Pydantic models
 class User(BaseModel):
