@@ -78,6 +78,11 @@ class Category(BaseModel):
     color: str
     icon: str
     budget_percentage: float = 0.0
+    
+    class Config:
+        json_encoders = {
+            ObjectId: str
+        }
 
 class Income(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
