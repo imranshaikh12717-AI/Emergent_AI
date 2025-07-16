@@ -38,16 +38,18 @@ categories_collection = db.categories
 
 # Helper function to convert ObjectId to string and make documents JSON serializable
 def convert_object_id(doc):
-    """Convert MongoDB ObjectId to string for JSON serialization"""
+    """Convert MongoDB ObjectId to string and datetime to ISO format for JSON serialization"""
     if isinstance(doc, list):
         return [convert_object_id(item) for item in doc]
     elif isinstance(doc, dict):
         return {
-            key: str(value) if isinstance(value, ObjectId) else convert_object_id(value)
+            key: convert_object_id(value)
             for key, value in doc.items()
         }
     elif isinstance(doc, ObjectId):
         return str(doc)
+    elif isinstance(doc, datetime):
+        return doc.isoformat()
     else:
         return doc
 
