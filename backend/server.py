@@ -329,7 +329,7 @@ async def get_expenses(user_id: str, month: int = None, year: int = None):
         query.update({"month": month, "year": year})
     
     expense_data = list(expenses_collection.find(query, {"_id": 0}))
-    return {"expenses": jsonable_encoder(expense_data)}
+    return {"expenses": convert_object_id(expense_data)}
 
 @app.delete("/api/expenses/{expense_id}")
 async def delete_expense(expense_id: str):
