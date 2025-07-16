@@ -251,6 +251,8 @@ async def add_income(income: Income):
     income.year = income.date.year
     
     income_dict = income.dict()
+    # Convert datetime to string for JSON serialization
+    income_dict["date"] = income_dict["date"].isoformat()
     income_collection.insert_one(income_dict)
     return {"message": "Income added successfully", "income": income_dict}
 
