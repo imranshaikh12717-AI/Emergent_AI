@@ -308,14 +308,13 @@ async def update_user(user_id: str, user_update: dict):
 
 @app.post("/api/income")
 async def add_income(income: Income):
-    # Parse date string to get month and year
-    date_obj = datetime.fromisoformat(income.date.replace('Z', '+00:00'))
-    income.month = date_obj.month
-    income.year = date_obj.year
+    # Set month and year from date
+    income.month = income.date.month
+    income.year = income.date.year
     
     income_dict = income.dict()
     income_collection.insert_one(income_dict)
-    return {"message": "Income added successfully", "income": income_dict}
+    return {"message": "Income added successfully", "income": jsonable_encoder(income_dict)}
 
 @app.get("/api/income/{user_id}")
 async def get_income(user_id: str, month: int = None, year: int = None):
