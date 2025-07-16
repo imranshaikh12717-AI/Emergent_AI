@@ -392,7 +392,7 @@ async def get_savings_recommendations(user_id: str, month: int = None, year: int
     overspending_data = detect_overspending(user_id, month, year)
     recommendations = generate_savings_tips(overspending_data)
     
-    return {"recommendations": jsonable_encoder([rec.dict() for rec in recommendations])}
+    return {"recommendations": convert_object_id([rec.dict() for rec in recommendations])}
 
 if __name__ == "__main__":
     import uvicorn
