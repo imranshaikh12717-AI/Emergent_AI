@@ -89,9 +89,15 @@ class Income(BaseModel):
     user_id: str
     amount: float
     source: str
-    date: str = Field(default_factory=lambda: datetime.utcnow().isoformat())
+    date: datetime = Field(default_factory=datetime.utcnow)
     month: int
     year: int
+    
+    class Config:
+        json_encoders = {
+            datetime: lambda v: v.isoformat(),
+            ObjectId: str
+        }
 
 class Expense(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
