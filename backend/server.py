@@ -52,7 +52,7 @@ class Income(BaseModel):
     user_id: str
     amount: float
     source: str
-    date: datetime = Field(default_factory=datetime.utcnow)
+    date: str = Field(default_factory=lambda: datetime.utcnow().isoformat())
     month: int
     year: int
 
