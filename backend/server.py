@@ -231,8 +231,8 @@ async def test_create_user():
         "created_at": datetime.utcnow().isoformat()
     }
     
-    # Don't insert to MongoDB for now
-    # users_collection.insert_one(test_user)
+    # Try inserting to MongoDB
+    users_collection.insert_one(test_user)
     return {"message": "Test user created", "user": test_user}
 
 @app.get("/api/categories")
